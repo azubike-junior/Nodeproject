@@ -2,6 +2,15 @@ var http = require('http');
 var path = require('path');
 var server = http.createServer();
 
+
+var express = require('express');
+const app = express();
+
+const bodyParser = require('body-parser');
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'pug');
+
+
 var query = urlquery;
 console.log(query);
 var url = require('url');
@@ -10,5 +19,3 @@ server.listen(4000, function(){
 
 	console.log("server started at 4000")
 })
-
-
