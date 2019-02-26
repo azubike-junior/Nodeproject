@@ -51,16 +51,13 @@ app.use((error, req, res, next) => {
 
 db.sequelize
   .authenticate()
-  .then(() => {
+  .then(async () => {
     console.log("Connection to DB has been established successfully.");
+    await db.sequelize.sync({});
   })
   .catch(err => {
     console.error("Unable to connect to the database:", err);
   });
-
-(async () => {
-  await db.sequelize.sync({});
-})();
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });

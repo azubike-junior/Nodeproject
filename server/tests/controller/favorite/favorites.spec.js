@@ -5,8 +5,9 @@ import app from "../../../index";
 import { logInUserDependencies } from "../../helpers/dependencies";
 import { articleSeed } from "../../fixtures/models/articleData";
 import { decodeJWT, getJWTConfigs } from "../../../helpers/jwt";
+import { category } from "../../fixtures/models/categories";
 
-const { Articles } = models;
+const { Articles, Categories } = models;
 
 chai.use(chaiHttp);
 const baseUrl = "/api/v1/articles";
@@ -22,8 +23,12 @@ const favoriteDependency = async () => {
   );
   const token = userLoginResponse.token;
   const { userId } = await decodeJWT(token, getJWTConfigs());
-
-  const articleTemplate = Object.assign(articleSeed, { authorId: userId });
+  const articleCategory = await Categories.create(category);
+  const categoryId = articleCategory.get("id");
+  const articleTemplate = Object.assign(articleSeed, {
+    authorId: userId,
+    categoryId
+  });
   const article = await Articles.create(articleTemplate);
   const slug = article.get("slug");
   const title = article.get("title");
@@ -87,6 +92,5 @@ describe("Test to Favorite an article", () => {
 });
 
 after(async () => {
-  models.sequelize.drop();
-  models.sequelize.close();
+  await models.sequelize.drop();
 });

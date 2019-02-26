@@ -3,9 +3,9 @@ import uuid4 from "uuid/v4";
 export default {
   authorId: null /*TODO: required. Should be provided by a Users Table */,
   title: "The book of Eli",
-  categoryId: uuid4(),
+  categoryId: null /*TODO: required. Should be provided by a Category Table */,
   content: "This is article body",
-  readTime: "3:50",
+  readTime: 3,
   description: "This the article description",
   slug: "Article"
 };
@@ -13,7 +13,7 @@ export default {
 export const articleSeed = {
   authorId: "ec723837-b941-4472-b654-97f3434cedce",
   title: "The book of Eli",
-  categoryId: uuid4(),
+  categoryId: null /*TODO: required. Should be provided by a Category Table */,
   content: "This is article body",
   readTime: 3,
   description: "This the article description",

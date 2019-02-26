@@ -3,16 +3,22 @@ import chaiAsPromise from "chai-as-promised";
 import database from "../../models/index";
 import { userData } from "../fixtures/models/userData";
 import { articleData } from "../fixtures/models/articleData";
+import { category } from "../fixtures/models/categories";
 
 chai.use(chaiAsPromise);
-const { Users, Articles, Notifications } = database;
+const { Users, Articles, Notifications, Categories } = database;
 const { expect } = chai;
 
 const notificationDependencies = async () => {
   const createdUser = await Users.create(userData[0]);
   const userId = createdUser.get("id");
-  articleData.authorId = userId;
-  const articleInstance = await Articles.create(articleData);
+  const articleCategory = await Categories.create(category);
+  const categoryId = articleCategory.get("id");
+  const articleTemplate = Object.assign(articleData, {
+    authorId: userId,
+    categoryId
+  });
+  const articleInstance = await Articles.create(articleTemplate);
   const articleId = articleInstance.get("id");
 
   return Promise.resolve({

@@ -19,10 +19,6 @@ const getArticleModel = (sequelize, DataTypes) => {
       type: DataTypes.UUID,
       allowNull: false
     },
-    categoryId: {
-      type: DataTypes.UUID,
-      allowNull: false
-    },
     content: {
       type: DataTypes.TEXT,
       allowNull: false
@@ -36,9 +32,8 @@ const getArticleModel = (sequelize, DataTypes) => {
       defaultValue: 0,
       allowNull: false
     },
-    commentsCount: {
-      type: DataTypes.INTEGER,
-      defaultValue: 0,
+    categoryId: {
+      type: DataTypes.UUID,
       allowNull: false
     },
     numberOfReads: {
@@ -82,6 +77,10 @@ const getArticleModel = (sequelize, DataTypes) => {
       target: "id",
       as: "favourite",
       onDelete: "CASCADE"
+    });
+    Article.belongsTo(db.Categories, {
+      foreignKey: "categoryId",
+      target: "id"
     });
   };
   return Article;

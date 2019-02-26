@@ -84,5 +84,4 @@ request delays for password reset`, async () => {
 
 after(async () => {
   models.sequelize.drop();
-  models.sequelize.close();
 });

@@ -12,7 +12,7 @@ const configPath = env === "test" ? config : config.url;
 let sequelize;
 sequelize =
   env === "development"
-    ? new Sequelize(configPath, { logging: false })
+    ? new Sequelize(configPath, { logging: true })
     : new Sequelize(configPath);
 
 fs.readdirSync(__dirname)

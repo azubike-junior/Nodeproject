@@ -8,7 +8,7 @@ import { userData, socialUser } from "../fixtures/models/userData";
 import { getUserProfileFromApis } from "../../helpers/passportCallback";
 
 beforeEach(async () => {
-  await models.sequelize.sync({ force: true }).catch(() => {});
+   await models.sequelize.sync({ force: true });
 });
 
 const { Users } = models;
